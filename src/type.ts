@@ -50,3 +50,9 @@ export type TodoLine = {
   next_flg: boolean;
   difference_raw: number;
 };
+
+export type User = {
+  id: string;
+  name: string;
+  create_date: Date;
+};

@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import './App.css';
-import { TodoList, Day_of_week_date, ChangeTodo, DatePositions } from './type';
+import {
+  TodoList,
+  Day_of_week_date,
+  ChangeTodo,
+  DatePositions,
+  User,
+} from './type';
 import { DayOfWeek } from './calendar/DayOfWeek';
 import { DayCalendar } from './calendar/DayCalendar';
 import { ChoiceCalendar } from './calendar/ChoiceCalendar';
@@ -14,6 +20,7 @@ function App() {
   const [todoList, setTodoList] = useState<TodoList | []>([]);
   const [datePositions, setDatePositions] = useState<DatePositions | []>([]);
   const divRefs = useRef<{ [key in string]: HTMLDivElement | null }>({});
+  const [user, setUser] = useState<User | null>(null);
 
   //月の再設定後に影響する項目が下記
   //今年を取得している
@@ -21,13 +28,29 @@ function App() {
   //今月を取得
   const current_month = choiceDate.getMonth() + 1;
 
+  async function createUser(): Promise<User> {
+    return await invoke('create_user', {});
+  }
+
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke('greet', { name }));
   }
 
+  useEffect(() => {
+    (async () => {
+      const result = await createUser();
+      setUser(result);
+    })();
+  }, []);
+
   return (
     <main className="px-5 py-5 font-mono flex justify-around">
+      {user !== null && (
+        <p>
+          id: {user.id} name: {user.name}
+        </p>
+      )}
       <TodoListComponent todoList={todoList} setTodoList={setTodoList} />
       <div>
         <ChoiceCalendar

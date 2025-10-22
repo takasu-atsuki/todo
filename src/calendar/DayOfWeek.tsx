@@ -10,6 +10,7 @@ export const DayOfWeek = ({}: {}) => {
         {day_of_week_list.map((youbi) => {
           return (
             <th
+              key={youbi}
               className={`border-1 p-1 text-center ${
                 youbi == 'Sun' && 'bg-red-200'
               } ${youbi == 'Sat' && 'bg-blue-200'}`}

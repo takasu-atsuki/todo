@@ -229,7 +229,7 @@ export const DayCalendar = ({
       <tbody>
         {day_of_week_calendar_list.map((day_of_week_calendar_raw) => {
           return (
-            <tr>
+            <tr key={day_of_week_calendar_raw['Sun'].num}>
               <td className="border-1 p-1 text-center text-slate-400 border-black bg-red-200">
                 {day_of_week_calendar_raw['Sun'].num}
               </td>
@@ -264,6 +264,7 @@ export const DayCalendar = ({
             for (let i = 0; i <= todoComp.difference_raw; i++) {
               return (
                 <div
+                  key={todo.id}
                   className={`bg-green-600 absolute top-[35px] left-0 rounded-lg text-center text-[8px] font-bold h-[15px] px-2`}
                   style={{
                     top: i === 0 ? todoComp.up : todoComp.up * i,
@@ -287,6 +288,7 @@ export const DayCalendar = ({
             return (
               <>
                 <div
+                  key={todo.id}
                   className={`bg-green-600 absolute top-[35px] left-0 rounded-lg text-center text-[8px] font-bold h-[15px] px-2`}
                   style={{
                     top: todoComp.up,

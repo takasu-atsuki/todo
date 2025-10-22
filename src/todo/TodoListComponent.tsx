@@ -1,6 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ChangeTodo, Todo, TodoList } from '../type';
 import { FaRegPenToSquare } from 'react-icons/fa6';
+import { invoke } from '@tauri-apps/api/core';
+
+async function todoListSelect(): Promise<TodoList> {
+  return await invoke('todo_list_select', {});
+}
 
 export const TodoListComponent = ({
   todoList,
@@ -11,6 +16,13 @@ export const TodoListComponent = ({
 }) => {
   const textAreaRefs = useRef<{ [key in string]: HTMLTextAreaElement }>({});
   const [changeTodo, setChangeTodo] = useState<ChangeTodo | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const todoList = invoke('todo_list_select', {});
+      console.log(todoList);
+    })();
+  }, []);
 
   const compClick = (todo: Todo) => {
     setTodoList(
