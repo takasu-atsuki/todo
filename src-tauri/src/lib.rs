@@ -1,5 +1,5 @@
-use chrono::{DateTime, Local, Utc};
-use postgres::{Client, NoTls, Row};
+use chrono::{DateTime, Local};
+use postgres::{Client, NoTls};
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
 use std::env;
@@ -64,12 +64,12 @@ fn create_user() -> Result<User, String> {
     let name = get_user().unwrap();
     let db_connection = PSQL_CLIENT.lock().unwrap();
     let mut dereference_db: std::cell::RefMut<'_, Client> = db_connection.borrow_mut();
-    if let true = dereference_db
+    if dereference_db
         .query_opt("SELECT * FROM users where name = $1", &[&name])
         .unwrap()
         .is_none()
     {
-        dereference_db.execute("insert into users (name) values ($1)", &[&name]);
+        let _ = dereference_db.execute("insert into users (name) values ($1)", &[&name]);
     }
 
     let user = dereference_db
@@ -91,7 +91,7 @@ fn todo_list_select() -> Vec<Todo> {
         .query("SELECT * FROM todos where comp_flg = false", &[])
         .unwrap();
     let mut todoList = Vec::new();
-    if todo_list.len() > 0 {
+    if !todo_list.len() > 0 {
         for todo in todo_list {
             todoList.push(Todo {
                 id: todo.get("id"),
@@ -117,14 +117,13 @@ fn add_todo(title: &str, create_time: DateTime<Local>, comp_date: DateTime<Local
         )
         .unwrap();
     println!("{:?}", result);
-    let todo = Todo {
+    Todo {
         id: result.get("id"),
         title: result.get("title"),
         create_time: result.get("start_datetime"),
         comp_date: result.get("complete_datetime"),
         comp_flg: result.get("comp_flg"),
-    };
-    return todo;
+    }
 }
 
 #[tauri::command]
@@ -137,7 +136,7 @@ fn update_comp_flg(todo: Todo) -> bool {
             &[&todo.id],
         )
         .unwrap();
-    return result != 0;
+    result != 0
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
