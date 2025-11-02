@@ -15,7 +15,8 @@
         "title": "todo",
         "width": 600,
         "height": 600,
-        "closable": true
+        "closable": true,
+        "fullscreen": true
       }
     ],
     "security": {

@@ -17,6 +17,9 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.3.1
+      react-call:
+        specifier: ^1.8.1
+        version: 1.8.1(react@18.3.1)
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
@@ -784,6 +787,11 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
+  react-call@1.8.1:
+    resolution: {integrity: sha512-HztXMrthuK+XHeUcOJjBsT2U+oKpc2nKcUWii1aYBIs3vpgTFRQ7nm/RbjU8JCC41djRpT0GC0KgF8XYVgxOUQ==}
+    peerDependencies:
+      react: '>=18'
+
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -1472,6 +1480,10 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  react-call@1.8.1(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:

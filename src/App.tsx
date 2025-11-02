@@ -20,7 +20,6 @@ function App() {
   const [todoList, setTodoList] = useState<TodoList | []>([]);
   const [datePositions, setDatePositions] = useState<DatePositions | []>([]);
   const divRefs = useRef<{ [key in string]: HTMLDivElement | null }>({});
-  const [user, setUser] = useState<User | null>(null);
 
   //月の再設定後に影響する項目が下記
   //今年を取得している
@@ -28,47 +27,35 @@ function App() {
   //今月を取得
   const current_month = choiceDate.getMonth() + 1;
 
-  async function createUser(): Promise<User> {
-    return await invoke('create_user', {});
-  }
-
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke('greet', { name }));
   }
 
-  useEffect(() => {
-    (async () => {
-      const result = await createUser();
-      setUser(result);
-    })();
-  }, []);
-
   return (
-    <main className="px-5 py-5 font-mono flex justify-around">
-      {user !== null && (
-        <p>
-          id: {user.id} name: {user.name}
-        </p>
-      )}
-      <TodoListComponent todoList={todoList} setTodoList={setTodoList} />
-      <div>
-        <ChoiceCalendar
-          current_year={current_year}
-          current_month={current_month}
-          choiceDate={choiceDate}
-          setChoiceDate={setChoiceDate}
-        />
-        <table className="border-1 w-[800px] h-[600px] mt-10 relative">
-          <DayOfWeek />
-          <DayCalendar
-            todoList={todoList}
-            datePositions={datePositions}
-            setDatePositions={setDatePositions}
+    <main className="px-5 py-5 font-mono">
+      <div className="flex justify-around w-full h-full relative">
+        <TodoListComponent todoList={todoList} setTodoList={setTodoList} />
+        <div>
+          <ChoiceCalendar
             current_year={current_year}
             current_month={current_month}
+            choiceDate={choiceDate}
+            setChoiceDate={setChoiceDate}
           />
-        </table>
+          <div className="relative">
+            <table className="border-1 mt-10 relative">
+              <DayOfWeek />
+              <DayCalendar
+                todoList={todoList}
+                datePositions={datePositions}
+                setDatePositions={setDatePositions}
+                current_year={current_year}
+                current_month={current_month}
+              />
+            </table>
+          </div>
+        </div>
       </div>
     </main>
   );

@@ -5,7 +5,7 @@ export const DayOfWeek = ({}: {}) => {
   const day_of_week_list = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
-    <thead className="border-1">
+    <thead className="border-1 w-[800px] h-[33px]">
       <tr className="">
         {day_of_week_list.map((youbi) => {
           return (

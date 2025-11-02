@@ -4,7 +4,7 @@ CREATE DATABASE todo
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE IF NOT EXISTS public.users
-(id uuid NOT NULL DEFAULT gen_random_uuid(), name varchar(255), create_date timestamp(3) DEFAULT CURRENT_TIMESTAMP, CONSTRAINT user_table_pkey PRIMARY KEY(id))
+(id uuid NOT NULL DEFAULT gen_random_uuid(), name varchar(255), create_date timestamptz(3) DEFAULT CURRENT_TIMESTAMP, CONSTRAINT user_table_pkey PRIMARY KEY(id))
 
 CREATE TABLE iF NOT EXISTS public.todos
-(id uuid NOT NULL DEFAULT gen_random_uuid(), title varchar(255), start_datetime timestamp(3), complete_datetime timestamp(3), comp_flg boolean NOT NULL DEFAULT false, create_datetime timestamp(3) DEFAULT CURRENT_TIMESTAMP, CONSTRAINT todo_table_key PRIMARY KEY(id))
+(id uuid NOT NULL DEFAULT gen_random_uuid(), title varchar(255), start_datetime timestamptz(3), complete_datetime timestamptz(3), comp_flg boolean NOT NULL DEFAULT false, create_datetime timestamptz(3) DEFAULT CURRENT_TIMESTAMP, CONSTRAINT todo_table_key PRIMARY KEY(id))

@@ -49,10 +49,26 @@ export type TodoLine = {
   right: number;
   next_flg: boolean;
   difference_raw: number;
+  difference_lines: TodoDifferenceLines | null;
+  color: string;
 };
 
 export type User = {
   id: string;
   name: string;
   create_date: Date;
+};
+
+export type TodoDifferenceLines = TodoDifferenceLine[];
+
+export type TodoDifferenceLine = {
+  index: number;
+  up: number;
+  width: number;
+  down: number;
+};
+
+export type StartPosition_And_EndPosition = {
+  start: number[];
+  end: number[];
 };
